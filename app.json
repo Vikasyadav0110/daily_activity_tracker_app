@@ -1,0 +1,86 @@
+{
+  "expo": {
+    "name": "Daily Activity Tracker",
+    "slug": "daily-activity-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/icons/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./src/assets/icons/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.vikas.dailyactivitytracker",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSUserNotificationsUsageDescription": "We send daily reminders to help you stay consistent with your activities.",
+        "UIBackgroundModes": ["fetch", "remote-notification"]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/icons/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.vikas.dailyactivitytracker",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.SCHEDULE_EXACT_ALARM",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.VIBRATE"
+      ]
+    },
+    "web": {
+      "favicon": "./src/assets/icons/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./src/assets/icons/notification-icon.png",
+          "color": "#6200ee",
+          "sounds": [],
+          "androidMode": "default",
+          "androidCollapsedTitle": "Daily Activity Tracker"
+        }
+      ],
+      "expo-localization",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./src/assets/icons/splash.png",
+          "imageWidth": 200
+        }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "daily-activity-tracker",
+          "organization": "vikas-org"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "YOUR_EAS_PROJECT_ID"
+      }
+    },
+    "owner": "vikas",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/YOUR_EAS_PROJECT_ID"
+    }
+  }
+}

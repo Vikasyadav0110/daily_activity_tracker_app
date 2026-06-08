@@ -1,0 +1,152 @@
+{
+  "language": {
+    "select_title": "Choose Your Language",
+    "select_subtitle": "You can change this later in Settings",
+    "en": "English",
+    "hi": "हिन्दी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা"
+  },
+  "onboarding": {
+    "step1_title": "What is your primary goal?",
+    "step2_title": "Which exam are you preparing for?",
+    "step2_fitness_title": "How many activities do you want to track?",
+    "step3_title": "How many hours do you want to dedicate daily?",
+    "skip": "Skip",
+    "next": "Next",
+    "get_started": "Get Started",
+    "goal_exam": "Exam Prep",
+    "goal_fitness": "Fitness & Health",
+    "goal_spiritual": "Spiritual & Wellness",
+    "goal_productivity": "Personal Productivity",
+    "exam_upsc": "UPSC",
+    "exam_jee": "JEE",
+    "exam_neet": "NEET",
+    "exam_ssc": "SSC",
+    "exam_banking": "Banking Exams",
+    "activities_1_2": "1–2 activities",
+    "activities_3_5": "3–5 activities",
+    "activities_6_10": "6–10 activities",
+    "hours_2": "2 hours",
+    "hours_4": "4 hours",
+    "hours_6": "6 hours",
+    "hours_8_plus": "8+ hours"
+  },
+  "home": {
+    "title": "Today",
+    "progress": "{{completed}} of {{total}} completed",
+    "empty_title": "No activities yet",
+    "empty_subtitle": "Tap + to add your first activity",
+    "streak": "{{days}} day streak",
+    "streak_one": "{{days}} day streak",
+    "good_morning": "Good Morning!",
+    "good_afternoon": "Good Afternoon!",
+    "good_evening": "Good Evening!",
+    "all_done": "Great job! All done for today 🎉"
+  },
+  "activities": {
+    "create": {
+      "title": "New Activity",
+      "name_label": "Activity Name",
+      "name_placeholder": "e.g. Morning Run, Study, Meditation",
+      "name_error_empty": "Activity name is required",
+      "name_error_too_long": "Name must be 50 characters or less",
+      "icon_label": "Choose Icon",
+      "category_label": "Category",
+      "frequency_label": "Frequency",
+      "frequency_daily": "Daily",
+      "frequency_weekly": "Weekly",
+      "frequency_select_days": "Select Days",
+      "duration_label": "Target Duration (optional)",
+      "duration_placeholder": "Minutes",
+      "save": "Save Activity",
+      "cancel": "Cancel",
+      "duplicate_warning": "You already have '{{name}}'. Create anyway?",
+      "duplicate_confirm": "Create Anyway",
+      "char_count": "{{count}}/50"
+    },
+    "check_off": {
+      "undo": "Undo",
+      "undo_message": "Check-off undone",
+      "error": "Could not save. Please try again.",
+      "completed_today": "Completed today"
+    },
+    "list": {
+      "empty_state": "Add your first activity",
+      "progress": "{{completed}} of {{total}} done today"
+    },
+    "categories": {
+      "fitness": "Fitness",
+      "study": "Study",
+      "spiritual": "Spiritual & Wellness",
+      "health": "Health",
+      "productivity": "Productivity",
+      "custom": "Custom"
+    },
+    "days": {
+      "sun": "Sun",
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Appearance",
+    "theme_light": "Light",
+    "theme_dark": "Dark",
+    "notifications": "Notifications",
+    "notifications_enabled": "Enable reminders",
+    "about": "About",
+    "version": "Version {{version}}",
+    "feedback": "Send Feedback",
+    "privacy": "Privacy Policy"
+  },
+  "progress": {
+    "title": "Progress",
+    "streak_title": "Current Streak",
+    "streak_days": "{{days}} days",
+    "longest_streak": "Longest: {{days}} days",
+    "this_week": "This Week",
+    "this_month": "This Month",
+    "all_time": "All Time",
+    "heatmap_title": "Activity History",
+    "no_data": "No activity data yet"
+  },
+  "badges": {
+    "title": "Achievements",
+    "earned": "Earned",
+    "locked": "Locked",
+    "unlocked_message": "You unlocked: {{name}}! 🎉"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "loading": "Loading...",
+    "error_generic": "Something went wrong. Please try again.",
+    "retry": "Retry"
+  },
+  "notifications": {
+    "morning_title": "Good morning!",
+    "morning_body": "Time to check off your activities for today.",
+    "evening_title": "Evening check-in",
+    "evening_body": "How did your day go? Log your activities.",
+    "reminder_title": "Don't forget!",
+    "reminder_body": "You haven't logged {{name}} yet today.",
+    "streak_at_risk_title": "Streak at risk!",
+    "streak_at_risk_body": "Log {{name}} before midnight to keep your {{days}}-day streak.",
+    "forgiveness_title": "48-hour grace period active",
+    "forgiveness_body": "Log {{name}} today to save your {{days}}-day streak!"
+  }
+}

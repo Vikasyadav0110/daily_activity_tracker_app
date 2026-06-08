@@ -1,0 +1,152 @@
+{
+  "language": {
+    "select_title": "మీ భాషను ఎంచుకోండి",
+    "select_subtitle": "మీరు దీన్ని తర్వాత సెట్టింగ్‌లలో మార్చవచ్చు",
+    "en": "English",
+    "hi": "हिन्दी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা"
+  },
+  "onboarding": {
+    "step1_title": "మీ ప్రాథమిక లక్ష్యం ఏమిటి?",
+    "step2_title": "మీరు ఏ పరీక్షకు సిద్ధమవుతున్నారు?",
+    "step2_fitness_title": "మీరు ఎన్ని కార్యకలాపాలను ట్రాక్ చేయాలనుకుంటున్నారు?",
+    "step3_title": "మీరు రోజూ ఎన్ని గంటలు చదవాలనుకుంటున్నారు?",
+    "skip": "దాటవేయి",
+    "next": "తర్వాత",
+    "get_started": "ప్రారంభించండి",
+    "goal_exam": "పరీక్ష సన్నద్ధత",
+    "goal_fitness": "ఫిట్‌నెస్ మరియు ఆరోగ్యం",
+    "goal_spiritual": "ఆధ్యాత్మిక మరియు యోగా",
+    "goal_productivity": "వ్యక్తిగత ఉత్పాదకత",
+    "exam_upsc": "UPSC",
+    "exam_jee": "JEE",
+    "exam_neet": "NEET",
+    "exam_ssc": "SSC",
+    "exam_banking": "బ్యాంకింగ్ పరీక్షలు",
+    "activities_1_2": "1–2 కార్యకలాపాలు",
+    "activities_3_5": "3–5 కార్యకలాపాలు",
+    "activities_6_10": "6–10 కార్యకలాపాలు",
+    "hours_2": "2 గంటలు",
+    "hours_4": "4 గంటలు",
+    "hours_6": "6 గంటలు",
+    "hours_8_plus": "8+ గంటలు"
+  },
+  "home": {
+    "title": "నేడు",
+    "progress": "{{total}} లో {{completed}} పూర్తయింది",
+    "empty_title": "ఇంకా కార్యకలాపాలు లేవు",
+    "empty_subtitle": "మొదటి కార్యకలాపాన్ని జోడించడానికి + నొక్కండి",
+    "streak": "{{days}} రోజుల స్ట్రీక్",
+    "streak_one": "{{days}} రోజుల స్ట్రీక్",
+    "good_morning": "శుభోదయం!",
+    "good_afternoon": "నమస్కారం!",
+    "good_evening": "శుభ సాయంత్రం!",
+    "all_done": "శభాష్! ఈ రోజు అన్నీ పూర్తయ్యాయి 🎉"
+  },
+  "activities": {
+    "create": {
+      "title": "కొత్త కార్యకలాపం",
+      "name_label": "కార్యకలాప పేరు",
+      "name_placeholder": "ఉదా: ఉదయం పరుగు, చదువు, ధ్యానం",
+      "name_error_empty": "కార్యకలాప పేరు అవసరం",
+      "name_error_too_long": "పేరు 50 అక్షరాలకు తక్కువగా ఉండాలి",
+      "icon_label": "చిహ్నం ఎంచుకోండి",
+      "category_label": "వర్గం",
+      "frequency_label": "ఎంత తరచుగా",
+      "frequency_daily": "రోజూ",
+      "frequency_weekly": "వారాంతం",
+      "frequency_select_days": "రోజులు ఎంచుకోండి",
+      "duration_label": "లక్ష్య వ్యవధి (ఐచ్ఛికం)",
+      "duration_placeholder": "నిమిషాలు",
+      "save": "కార్యకలాపాన్ని సేవ్ చేయండి",
+      "cancel": "రద్దు చేయండి",
+      "duplicate_warning": "మీకు ఇప్పటికే '{{name}}' ఉంది. అయినా సృష్టించాలా?",
+      "duplicate_confirm": "అయినా సృష్టించు",
+      "char_count": "{{count}}/50"
+    },
+    "check_off": {
+      "undo": "రద్దు చేయి",
+      "undo_message": "చెక్-ఆఫ్ తీసివేయబడింది",
+      "error": "సేవ్ చేయలేకపోయాం. దయచేసి మళ్ళీ ప్రయత్నించండి.",
+      "completed_today": "నేడు పూర్తయింది"
+    },
+    "list": {
+      "empty_state": "మొదటి కార్యకలాపాన్ని జోడించండి",
+      "progress": "నేడు {{total}} లో {{completed}} పూర్తయింది"
+    },
+    "categories": {
+      "fitness": "ఫిట్‌నెస్",
+      "study": "చదువు",
+      "spiritual": "ఆధ్యాత్మికత",
+      "health": "ఆరోగ్యం",
+      "productivity": "ఉత్పాదకత",
+      "custom": "అనుకూలం"
+    },
+    "days": {
+      "sun": "ఆది",
+      "mon": "సోమ",
+      "tue": "మంగ",
+      "wed": "బుధ",
+      "thu": "గురు",
+      "fri": "శుక్ర",
+      "sat": "శని"
+    }
+  },
+  "settings": {
+    "title": "సెట్టింగ్‌లు",
+    "language": "భాష",
+    "theme": "రూపం",
+    "theme_light": "లైట్",
+    "theme_dark": "డార్క్",
+    "notifications": "నోటిఫికేషన్‌లు",
+    "notifications_enabled": "రిమైండర్‌లను ప్రారంభించండి",
+    "about": "గురించి",
+    "version": "వెర్షన్ {{version}}",
+    "feedback": "అభిప్రాయం పంపండి",
+    "privacy": "గోప్యతా విధానం"
+  },
+  "progress": {
+    "title": "పురోగతి",
+    "streak_title": "ప్రస్తుత స్ట్రీక్",
+    "streak_days": "{{days}} రోజులు",
+    "longest_streak": "పొడవైనది: {{days}} రోజులు",
+    "this_week": "ఈ వారం",
+    "this_month": "ఈ నెల",
+    "all_time": "ఎప్పటికీ",
+    "heatmap_title": "కార్యకలాప చరిత్ర",
+    "no_data": "ఇంకా డేటా లేదు"
+  },
+  "badges": {
+    "title": "విజయాలు",
+    "earned": "సంపాదించారు",
+    "locked": "లాక్ చేయబడింది",
+    "unlocked_message": "మీరు అన్‌లాక్ చేశారు: {{name}}! 🎉"
+  },
+  "common": {
+    "save": "సేవ్ చేయి",
+    "cancel": "రద్దు",
+    "delete": "తొలగించు",
+    "edit": "సవరించు",
+    "ok": "సరే",
+    "yes": "అవును",
+    "no": "కాదు",
+    "close": "మూసివేయి",
+    "loading": "లోడ్ అవుతోంది...",
+    "error_generic": "ఏదో తప్పు జరిగింది. దయచేసి మళ్ళీ ప్రయత్నించండి.",
+    "retry": "మళ్ళీ ప్రయత్నించు"
+  },
+  "notifications": {
+    "morning_title": "శుభోదయం!",
+    "morning_body": "నేటి కార్యకలాపాలను తనిఖీ చేయడానికి సమయం వచ్చింది.",
+    "evening_title": "సాయంత్రం తనిఖీ",
+    "evening_body": "మీ రోజు ఎలా గడిచింది? కార్యకలాపాలను లాగ్ చేయండి.",
+    "reminder_title": "మర్చిపోకండి!",
+    "reminder_body": "మీరు నేడు ఇంకా {{name}} లాగ్ చేయలేదు.",
+    "streak_at_risk_title": "స్ట్రీక్ ప్రమాదంలో ఉంది!",
+    "streak_at_risk_body": "మీ {{days}} రోజుల స్ట్రీక్‌ని కాపాడుకోవడానికి అర్ధరాత్రి కంటే ముందు {{name}} లాగ్ చేయండి.",
+    "forgiveness_title": "48 గంటల మన్నింపు సక్రియంగా ఉంది",
+    "forgiveness_body": "మీ {{days}} రోజుల స్ట్రీక్‌ని కాపాడుకోవడానికి నేడు {{name}} లాగ్ చేయండి!"
+  }
+}

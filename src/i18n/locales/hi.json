@@ -1,0 +1,152 @@
+{
+  "language": {
+    "select_title": "अपनी भाषा चुनें",
+    "select_subtitle": "आप इसे बाद में सेटिंग्स में बदल सकते हैं",
+    "en": "English",
+    "hi": "हिन्दी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা"
+  },
+  "onboarding": {
+    "step1_title": "आपका मुख्य लक्ष्य क्या है?",
+    "step2_title": "आप किस परीक्षा की तैयारी कर रहे हैं?",
+    "step2_fitness_title": "आप कितनी गतिविधियाँ ट्रैक करना चाहते हैं?",
+    "step3_title": "आप रोज़ाना कितने घंटे पढ़ना चाहते हैं?",
+    "skip": "छोड़ें",
+    "next": "आगे",
+    "get_started": "शुरू करें",
+    "goal_exam": "परीक्षा तैयारी",
+    "goal_fitness": "फिटनेस और स्वास्थ्य",
+    "goal_spiritual": "आध्यात्मिक और योग",
+    "goal_productivity": "व्यक्तिगत उत्पादकता",
+    "exam_upsc": "UPSC",
+    "exam_jee": "JEE",
+    "exam_neet": "NEET",
+    "exam_ssc": "SSC",
+    "exam_banking": "बैंकिंग परीक्षाएं",
+    "activities_1_2": "1–2 गतिविधियाँ",
+    "activities_3_5": "3–5 गतिविधियाँ",
+    "activities_6_10": "6–10 गतिविधियाँ",
+    "hours_2": "2 घंटे",
+    "hours_4": "4 घंटे",
+    "hours_6": "6 घंटे",
+    "hours_8_plus": "8+ घंटे"
+  },
+  "home": {
+    "title": "आज",
+    "progress": "{{total}} में से {{completed}} पूरा",
+    "empty_title": "अभी कोई गतिविधि नहीं",
+    "empty_subtitle": "पहली गतिविधि जोड़ने के लिए + दबाएं",
+    "streak": "{{days}} दिन की स्ट्रीक",
+    "streak_one": "{{days}} दिन की स्ट्रीक",
+    "good_morning": "सुप्रभात!",
+    "good_afternoon": "नमस्ते!",
+    "good_evening": "शुभ संध्या!",
+    "all_done": "शाबाश! आज सब कुछ पूरा हो गया 🎉"
+  },
+  "activities": {
+    "create": {
+      "title": "नई गतिविधि",
+      "name_label": "गतिविधि का नाम",
+      "name_placeholder": "जैसे: सुबह दौड़, पढ़ाई, ध्यान",
+      "name_error_empty": "गतिविधि का नाम आवश्यक है",
+      "name_error_too_long": "नाम 50 अक्षरों से कम होना चाहिए",
+      "icon_label": "आइकन चुनें",
+      "category_label": "श्रेणी",
+      "frequency_label": "कितनी बार",
+      "frequency_daily": "रोज़ाना",
+      "frequency_weekly": "साप्ताहिक",
+      "frequency_select_days": "दिन चुनें",
+      "duration_label": "लक्षित अवधि (वैकल्पिक)",
+      "duration_placeholder": "मिनट",
+      "save": "गतिविधि सहेजें",
+      "cancel": "रद्द करें",
+      "duplicate_warning": "आपके पास पहले से '{{name}}' है। फिर भी बनाएं?",
+      "duplicate_confirm": "फिर भी बनाएं",
+      "char_count": "{{count}}/50"
+    },
+    "check_off": {
+      "undo": "पूर्ववत करें",
+      "undo_message": "चेक-ऑफ हटाया गया",
+      "error": "सहेज नहीं हुआ। कृपया फिर से प्रयास करें।",
+      "completed_today": "आज पूरा किया"
+    },
+    "list": {
+      "empty_state": "पहली गतिविधि जोड़ें",
+      "progress": "आज {{total}} में से {{completed}} हुआ"
+    },
+    "categories": {
+      "fitness": "फिटनेस",
+      "study": "पढ़ाई",
+      "spiritual": "आध्यात्मिक",
+      "health": "स्वास्थ्य",
+      "productivity": "उत्पादकता",
+      "custom": "कस्टम"
+    },
+    "days": {
+      "sun": "रवि",
+      "mon": "सोम",
+      "tue": "मंगल",
+      "wed": "बुध",
+      "thu": "गुरु",
+      "fri": "शुक्र",
+      "sat": "शनि"
+    }
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "language": "भाषा",
+    "theme": "थीम",
+    "theme_light": "हल्का",
+    "theme_dark": "गहरा",
+    "notifications": "सूचनाएं",
+    "notifications_enabled": "रिमाइंडर सक्षम करें",
+    "about": "के बारे में",
+    "version": "संस्करण {{version}}",
+    "feedback": "फीडबैक भेजें",
+    "privacy": "गोपनीयता नीति"
+  },
+  "progress": {
+    "title": "प्रगति",
+    "streak_title": "वर्तमान स्ट्रीक",
+    "streak_days": "{{days}} दिन",
+    "longest_streak": "सबसे लंबी: {{days}} दिन",
+    "this_week": "इस सप्ताह",
+    "this_month": "इस महीने",
+    "all_time": "अब तक",
+    "heatmap_title": "गतिविधि इतिहास",
+    "no_data": "अभी तक कोई डेटा नहीं"
+  },
+  "badges": {
+    "title": "उपलब्धियां",
+    "earned": "अर्जित",
+    "locked": "बंद",
+    "unlocked_message": "आपने अनलॉक किया: {{name}}! 🎉"
+  },
+  "common": {
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "ok": "ठीक है",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "close": "बंद करें",
+    "loading": "लोड हो रहा है...",
+    "error_generic": "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
+    "retry": "पुनः प्रयास"
+  },
+  "notifications": {
+    "morning_title": "सुप्रभात!",
+    "morning_body": "आज की गतिविधियाँ चेक करने का समय आ गया है।",
+    "evening_title": "शाम की जांच",
+    "evening_body": "आपका दिन कैसा रहा? गतिविधियाँ लॉग करें।",
+    "reminder_title": "मत भूलिए!",
+    "reminder_body": "आपने आज {{name}} अभी तक लॉग नहीं किया।",
+    "streak_at_risk_title": "स्ट्रीक खतरे में है!",
+    "streak_at_risk_body": "अपनी {{days}} दिन की स्ट्रीक बचाने के लिए आधी रात से पहले {{name}} लॉग करें।",
+    "forgiveness_title": "48 घंटे की माफी सक्रिय है",
+    "forgiveness_body": "अपनी {{days}} दिन की स्ट्रीक बचाने के लिए आज {{name}} लॉग करें!"
+  }
+}

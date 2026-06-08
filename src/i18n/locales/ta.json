@@ -1,0 +1,152 @@
+{
+  "language": {
+    "select_title": "உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்",
+    "select_subtitle": "இதை பின்னர் அமைப்புகளில் மாற்றலாம்",
+    "en": "English",
+    "hi": "हिन्दी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা"
+  },
+  "onboarding": {
+    "step1_title": "உங்கள் முதன்மை இலக்கு என்ன?",
+    "step2_title": "நீங்கள் எந்த தேர்வுக்கு தயாராகிறீர்கள்?",
+    "step2_fitness_title": "நீங்கள் எத்தனை நடவடிக்கைகளை கண்காணிக்க விரும்புகிறீர்கள்?",
+    "step3_title": "நீங்கள் தினமும் எத்தனை மணி நேரம் படிக்க விரும்புகிறீர்கள்?",
+    "skip": "தவிர்",
+    "next": "அடுத்து",
+    "get_started": "தொடங்கு",
+    "goal_exam": "தேர்வு தயாரிப்பு",
+    "goal_fitness": "உடற்தகுதி மற்றும் ஆரோக்கியம்",
+    "goal_spiritual": "ஆன்மிகம் மற்றும் யோகா",
+    "goal_productivity": "தனிப்பட்ட உற்பத்தித்திறன்",
+    "exam_upsc": "UPSC",
+    "exam_jee": "JEE",
+    "exam_neet": "NEET",
+    "exam_ssc": "SSC",
+    "exam_banking": "வங்கி தேர்வுகள்",
+    "activities_1_2": "1–2 நடவடிக்கைகள்",
+    "activities_3_5": "3–5 நடவடிக்கைகள்",
+    "activities_6_10": "6–10 நடவடிக்கைகள்",
+    "hours_2": "2 மணி நேரம்",
+    "hours_4": "4 மணி நேரம்",
+    "hours_6": "6 மணி நேரம்",
+    "hours_8_plus": "8+ மணி நேரம்"
+  },
+  "home": {
+    "title": "இன்று",
+    "progress": "{{total}} இல் {{completed}} முடிந்தது",
+    "empty_title": "இன்னும் நடவடிக்கைகள் இல்லை",
+    "empty_subtitle": "முதல் நடவடிக்கையை சேர்க்க + அழுத்தவும்",
+    "streak": "{{days}} நாள் தொடர்ச்சி",
+    "streak_one": "{{days}} நாள் தொடர்ச்சி",
+    "good_morning": "காலை வணக்கம்!",
+    "good_afternoon": "மதிய வணக்கம்!",
+    "good_evening": "மாலை வணக்கம்!",
+    "all_done": "சாபாஷ்! இன்று எல்லாம் முடிந்தது 🎉"
+  },
+  "activities": {
+    "create": {
+      "title": "புதிய நடவடிக்கை",
+      "name_label": "நடவடிக்கை பெயர்",
+      "name_placeholder": "எ.கா: காலை ஓட்டம், படிப்பு, தியானம்",
+      "name_error_empty": "நடவடிக்கை பெயர் தேவை",
+      "name_error_too_long": "பெயர் 50 எழுத்துக்களுக்கும் குறைவாக இருக்க வேண்டும்",
+      "icon_label": "ஐகான் தேர்வு",
+      "category_label": "வகை",
+      "frequency_label": "எத்தனை முறை",
+      "frequency_daily": "தினமும்",
+      "frequency_weekly": "வாராந்திரம்",
+      "frequency_select_days": "நாட்களை தேர்ந்தெடு",
+      "duration_label": "இலக்கு நேரம் (விருப்பத்தேர்வு)",
+      "duration_placeholder": "நிமிடங்கள்",
+      "save": "நடவடிக்கையை சேமி",
+      "cancel": "ரத்து செய்",
+      "duplicate_warning": "உங்களுக்கு ஏற்கனவே '{{name}}' உள்ளது. இருந்தாலும் உருவாக்கலாமா?",
+      "duplicate_confirm": "உருவாக்கு",
+      "char_count": "{{count}}/50"
+    },
+    "check_off": {
+      "undo": "செயல்தவிர்",
+      "undo_message": "செக்-ஆஃப் நீக்கப்பட்டது",
+      "error": "சேமிக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+      "completed_today": "இன்று முடிந்தது"
+    },
+    "list": {
+      "empty_state": "முதல் நடவடிக்கையை சேர்",
+      "progress": "இன்று {{total}} இல் {{completed}} முடிந்தது"
+    },
+    "categories": {
+      "fitness": "உடற்தகுதி",
+      "study": "படிப்பு",
+      "spiritual": "ஆன்மிகம்",
+      "health": "ஆரோக்கியம்",
+      "productivity": "உற்பத்தித்திறன்",
+      "custom": "தனிப்பயன்"
+    },
+    "days": {
+      "sun": "ஞாயி",
+      "mon": "திங்",
+      "tue": "செவ்",
+      "wed": "புத",
+      "thu": "வியா",
+      "fri": "வெள்",
+      "sat": "சனி"
+    }
+  },
+  "settings": {
+    "title": "அமைப்புகள்",
+    "language": "மொழி",
+    "theme": "தோற்றம்",
+    "theme_light": "வெளிர்",
+    "theme_dark": "இருண்ட",
+    "notifications": "அறிவிப்புகள்",
+    "notifications_enabled": "நினைவூட்டல்களை இயக்கு",
+    "about": "பற்றி",
+    "version": "பதிப்பு {{version}}",
+    "feedback": "கருத்து அனுப்பு",
+    "privacy": "தனியுரிமை கொள்கை"
+  },
+  "progress": {
+    "title": "முன்னேற்றம்",
+    "streak_title": "தற்போதைய தொடர்ச்சி",
+    "streak_days": "{{days}} நாட்கள்",
+    "longest_streak": "நீண்டதது: {{days}} நாட்கள்",
+    "this_week": "இந்த வாரம்",
+    "this_month": "இந்த மாதம்",
+    "all_time": "எல்லா நேரமும்",
+    "heatmap_title": "நடவடிக்கை வரலாறு",
+    "no_data": "இன்னும் தரவு இல்லை"
+  },
+  "badges": {
+    "title": "சாதனைகள்",
+    "earned": "பெற்றது",
+    "locked": "பூட்டப்பட்டது",
+    "unlocked_message": "நீங்கள் திறந்தீர்கள்: {{name}}! 🎉"
+  },
+  "common": {
+    "save": "சேமி",
+    "cancel": "ரத்து",
+    "delete": "நீக்கு",
+    "edit": "திருத்து",
+    "ok": "சரி",
+    "yes": "ஆம்",
+    "no": "இல்லை",
+    "close": "மூடு",
+    "loading": "ஏற்றுகிறது...",
+    "error_generic": "ஏதோ தவறு நடந்தது. மீண்டும் முயற்சிக்கவும்.",
+    "retry": "மீண்டும் முயற்சி"
+  },
+  "notifications": {
+    "morning_title": "காலை வணக்கம்!",
+    "morning_body": "இன்றைய நடவடிக்கைகளை சரிபார்க்க நேரம் வந்தது.",
+    "evening_title": "மாலை சரிபார்ப்பு",
+    "evening_body": "உங்கள் நாள் எப்படி இருந்தது? நடவடிக்கைகளை பதிவு செய்யுங்கள்.",
+    "reminder_title": "மறக்காதீர்கள்!",
+    "reminder_body": "இன்று {{name}} இன்னும் பதிவு செய்யவில்லை.",
+    "streak_at_risk_title": "தொடர்ச்சி ஆபத்தில் உள்ளது!",
+    "streak_at_risk_body": "உங்கள் {{days}} நாள் தொடர்ச்சியை காக்க நள்ளிரவுக்கு முன் {{name}} பதிவு செய்யுங்கள்.",
+    "forgiveness_title": "48 மணி நேர மன்னிப்பு செயல்படுகிறது",
+    "forgiveness_body": "உங்கள் {{days}} நாள் தொடர்ச்சியை காக்க இன்று {{name}} பதிவு செய்யுங்கள்!"
+  }
+}

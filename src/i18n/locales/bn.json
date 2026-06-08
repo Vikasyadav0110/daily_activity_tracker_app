@@ -1,0 +1,152 @@
+{
+  "language": {
+    "select_title": "আপনার ভাষা বেছে নিন",
+    "select_subtitle": "আপনি পরে সেটিংসে এটি পরিবর্তন করতে পারবেন",
+    "en": "English",
+    "hi": "हिन्दी",
+    "ta": "தமிழ்",
+    "te": "తెలుగు",
+    "bn": "বাংলা"
+  },
+  "onboarding": {
+    "step1_title": "আপনার প্রধান লক্ষ্য কী?",
+    "step2_title": "আপনি কোন পরীক্ষার জন্য প্রস্তুতি নিচ্ছেন?",
+    "step2_fitness_title": "আপনি কতটি কার্যকলাপ ট্র্যাক করতে চান?",
+    "step3_title": "আপনি প্রতিদিন কত ঘণ্টা পড়াশোনা করতে চান?",
+    "skip": "এড়িয়ে যান",
+    "next": "পরবর্তী",
+    "get_started": "শুরু করুন",
+    "goal_exam": "পরীক্ষার প্রস্তুতি",
+    "goal_fitness": "ফিটনেস ও স্বাস্থ্য",
+    "goal_spiritual": "আধ্যাত্মিক ও যোগব্যায়াম",
+    "goal_productivity": "ব্যক্তিগত উৎপাদনশীলতা",
+    "exam_upsc": "UPSC",
+    "exam_jee": "JEE",
+    "exam_neet": "NEET",
+    "exam_ssc": "SSC",
+    "exam_banking": "ব্যাংকিং পরীক্ষা",
+    "activities_1_2": "১–২ কার্যকলাপ",
+    "activities_3_5": "৩–৫ কার্যকলাপ",
+    "activities_6_10": "৬–১০ কার্যকলাপ",
+    "hours_2": "২ ঘণ্টা",
+    "hours_4": "৪ ঘণ্টা",
+    "hours_6": "৬ ঘণ্টা",
+    "hours_8_plus": "৮+ ঘণ্টা"
+  },
+  "home": {
+    "title": "আজ",
+    "progress": "{{total}} এর মধ্যে {{completed}} সম্পন্ন",
+    "empty_title": "এখনও কোনো কার্যকলাপ নেই",
+    "empty_subtitle": "প্রথম কার্যকলাপ যোগ করতে + চাপুন",
+    "streak": "{{days}} দিনের স্ট্রিক",
+    "streak_one": "{{days}} দিনের স্ট্রিক",
+    "good_morning": "শুভ সকাল!",
+    "good_afternoon": "নমস্কার!",
+    "good_evening": "শুভ সন্ধ্যা!",
+    "all_done": "দারুণ! আজকের সব কাজ শেষ 🎉"
+  },
+  "activities": {
+    "create": {
+      "title": "নতুন কার্যকলাপ",
+      "name_label": "কার্যকলাপের নাম",
+      "name_placeholder": "যেমন: সকালের দৌড়, পড়াশোনা, ধ্যান",
+      "name_error_empty": "কার্যকলাপের নাম প্রয়োজন",
+      "name_error_too_long": "নাম ৫০ অক্ষরের কম হতে হবে",
+      "icon_label": "আইকন বেছে নিন",
+      "category_label": "বিভাগ",
+      "frequency_label": "কতবার",
+      "frequency_daily": "প্রতিদিন",
+      "frequency_weekly": "সাপ্তাহিক",
+      "frequency_select_days": "দিন বেছে নিন",
+      "duration_label": "লক্ষ্য সময় (ঐচ্ছিক)",
+      "duration_placeholder": "মিনিট",
+      "save": "কার্যকলাপ সংরক্ষণ করুন",
+      "cancel": "বাতিল করুন",
+      "duplicate_warning": "আপনার কাছে ইতিমধ্যে '{{name}}' আছে। তবুও তৈরি করবেন?",
+      "duplicate_confirm": "তবুও তৈরি করুন",
+      "char_count": "{{count}}/50"
+    },
+    "check_off": {
+      "undo": "পূর্বাবস্থায় ফিরুন",
+      "undo_message": "চেক-অফ সরানো হয়েছে",
+      "error": "সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+      "completed_today": "আজ সম্পন্ন হয়েছে"
+    },
+    "list": {
+      "empty_state": "প্রথম কার্যকলাপ যোগ করুন",
+      "progress": "আজ {{total}} এর মধ্যে {{completed}} সম্পন্ন"
+    },
+    "categories": {
+      "fitness": "ফিটনেস",
+      "study": "পড়াশোনা",
+      "spiritual": "আধ্যাত্মিক",
+      "health": "স্বাস্থ্য",
+      "productivity": "উৎপাদনশীলতা",
+      "custom": "কাস্টম"
+    },
+    "days": {
+      "sun": "রবি",
+      "mon": "সোম",
+      "tue": "মঙ্গল",
+      "wed": "বুধ",
+      "thu": "বৃহ",
+      "fri": "শুক্র",
+      "sat": "শনি"
+    }
+  },
+  "settings": {
+    "title": "সেটিংস",
+    "language": "ভাষা",
+    "theme": "চেহারা",
+    "theme_light": "হালকা",
+    "theme_dark": "অন্ধকার",
+    "notifications": "বিজ্ঞপ্তি",
+    "notifications_enabled": "রিমাইন্ডার চালু করুন",
+    "about": "সম্পর্কে",
+    "version": "সংস্করণ {{version}}",
+    "feedback": "মতামত পাঠান",
+    "privacy": "গোপনীয়তা নীতি"
+  },
+  "progress": {
+    "title": "অগ্রগতি",
+    "streak_title": "বর্তমান স্ট্রিক",
+    "streak_days": "{{days}} দিন",
+    "longest_streak": "সবচেয়ে দীর্ঘ: {{days}} দিন",
+    "this_week": "এই সপ্তাহ",
+    "this_month": "এই মাস",
+    "all_time": "সর্বকাল",
+    "heatmap_title": "কার্যকলাপের ইতিহাস",
+    "no_data": "এখনও কোনো ডেটা নেই"
+  },
+  "badges": {
+    "title": "অর্জন",
+    "earned": "অর্জিত",
+    "locked": "লক করা",
+    "unlocked_message": "আপনি আনলক করেছেন: {{name}}! 🎉"
+  },
+  "common": {
+    "save": "সংরক্ষণ",
+    "cancel": "বাতিল",
+    "delete": "মুছুন",
+    "edit": "সম্পাদনা",
+    "ok": "ঠিক আছে",
+    "yes": "হ্যাঁ",
+    "no": "না",
+    "close": "বন্ধ করুন",
+    "loading": "লোড হচ্ছে...",
+    "error_generic": "কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।",
+    "retry": "আবার চেষ্টা করুন"
+  },
+  "notifications": {
+    "morning_title": "শুভ সকাল!",
+    "morning_body": "আজকের কার্যকলাপগুলি চেক করার সময় এসেছে।",
+    "evening_title": "সন্ধ্যার চেক-ইন",
+    "evening_body": "আপনার দিন কেমন ছিল? কার্যকলাপ লগ করুন।",
+    "reminder_title": "ভুলবেন না!",
+    "reminder_body": "আপনি আজ এখনও {{name}} লগ করেননি।",
+    "streak_at_risk_title": "স্ট্রিক ঝুঁকিতে!",
+    "streak_at_risk_body": "আপনার {{days}} দিনের স্ট্রিক বাঁচাতে মধ্যরাতের আগে {{name}} লগ করুন।",
+    "forgiveness_title": "৪৮ ঘণ্টার মাফ সক্রিয়",
+    "forgiveness_body": "আপনার {{days}} দিনের স্ট্রিক বাঁচাতে আজ {{name}} লগ করুন!"
+  }
+}
