@@ -36,7 +36,7 @@ export async function signInWithEmail(email: string, password: string): Promise<
 }
 
 export async function signInWithGoogle(): Promise<AuthUser> {
-  const redirectUrl = AuthSession.makeRedirectUri({ scheme: 'daily-activity-tracker' });
+  const redirectUrl = AuthSession.makeRedirectUri({ scheme: 'dailytracker' });
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: { redirectTo: redirectUrl, skipBrowserRedirect: true },

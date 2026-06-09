@@ -10,11 +10,8 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { Text, useTheme, ActivityIndicator, Surface, Divider } from 'react-native-paper';
+import { Text, useTheme, ActivityIndicator, Surface, Divider, type MD3Theme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '@navigation/types';
 import { useAuthStore } from '@store/authStore';
 import { useXPStore } from '@store/xpStore';
 import {
@@ -32,16 +29,15 @@ import {
 import { TeamMemberCard } from '@components/team/TeamMemberCard';
 import { upsertLeaderboard } from '@services/social/friendsService';
 
-type View = 'loading' | 'no_team' | 'create' | 'join' | 'dashboard';
+type ScreenView = 'loading' | 'no_team' | 'create' | 'join' | 'dashboard';
 
 export function TeamScreen() {
   const theme = useTheme();
   const { t } = useTranslation();
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { user } = useAuthStore();
   const { weekXp, level } = useXPStore();
 
-  const [view, setView] = useState<View>('loading');
+  const [view, setView] = useState<ScreenView>('loading');
   const [team, setTeam] = useState<Team | null>(null);
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [challenges, setChallenges] = useState<TeamChallenge[]>([]);
@@ -57,7 +53,7 @@ export function TeamScreen() {
   // New challenge form
   const [showNewChallenge, setShowNewChallenge] = useState(false);
   const [challengeName, setChallengeName] = useState('');
-  const [targetMetric, setTargetMetric] = useState('days');
+  const [targetMetric, _setTargetMetric] = useState('days');
   const [targetCount, setTargetCount] = useState('30');
   const [challengeEndDate, setChallengeEndDate] = useState('');
 
@@ -127,13 +123,18 @@ export function TeamScreen() {
 
   async function handleCreateChallenge() {
     if (!team || !challengeName.trim() || !challengeEndDate.trim()) return;
+    const parsedCount = parseInt(targetCount, 10);
+    if (isNaN(parsedCount) || parsedCount <= 0) {
+      Alert.alert(t('common.error'), 'Target must be a number greater than 0.');
+      return;
+    }
     setSubmitting(true);
     try {
       await createTeamChallenge(
         team.id,
         challengeName.trim(),
         targetMetric,
-        parseInt(targetCount, 10) || 30,
+        parsedCount,
         challengeEndDate.trim()
       );
       setShowNewChallenge(false);
@@ -460,7 +461,7 @@ function FormField({
   value: string;
   onChange: (v: string) => void;
   placeholder: string;
-  theme: ReturnType<typeof useTheme>;
+  theme: MD3Theme;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   keyboardType?: 'default' | 'numeric' | 'email-address';
 }) {

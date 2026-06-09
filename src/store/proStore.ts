@@ -1,8 +1,15 @@
 import { create } from 'zustand';
-import { getLocalSubscription, type Plan, type SubStatus } from '@services/subscription/subscriptionService';
+import {
+  getLocalSubscription,
+  isProPlan,
+  isPremiumPlusPlan,
+  type Plan,
+  type SubStatus,
+} from '@services/subscription/subscriptionService';
 
 interface ProStore {
   isPro: boolean;
+  isPremiumPlus: boolean;
   plan: Plan;
   status: SubStatus;
   expiresAt: string | null;
@@ -13,6 +20,7 @@ interface ProStore {
 
 export const useProStore = create<ProStore>((set) => ({
   isPro: false,
+  isPremiumPlus: false,
   plan: 'free',
   status: 'inactive',
   expiresAt: null,
@@ -22,6 +30,7 @@ export const useProStore = create<ProStore>((set) => ({
     const state = await getLocalSubscription();
     set({
       isPro: state.isPro,
+      isPremiumPlus: state.isPremiumPlus,
       plan: state.plan,
       status: state.status,
       expiresAt: state.expiresAt,
@@ -30,7 +39,13 @@ export const useProStore = create<ProStore>((set) => ({
   },
 
   setSubscription: (plan, status, expiresAt) => {
-    const isPro = plan !== 'free' && status === 'active';
-    set({ isPro, plan, status, expiresAt });
+    const active = status === 'active';
+    set({
+      isPro: isProPlan(plan) && active,
+      isPremiumPlus: isPremiumPlusPlan(plan) && active,
+      plan,
+      status,
+      expiresAt,
+    });
   },
 }));

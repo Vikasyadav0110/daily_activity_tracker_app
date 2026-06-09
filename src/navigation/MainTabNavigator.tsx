@@ -7,6 +7,7 @@ import { HomeStackNavigator } from './HomeStackNavigator';
 import { ProgressScreen } from '@screens/ProgressScreen';
 import { AnalyticsScreen } from '@screens/AnalyticsScreen';
 import { SocialScreen } from '@screens/SocialScreen';
+import { WellnessScreen } from '@screens/wellness/WellnessScreen';
 import { SettingsScreen } from '@screens/SettingsScreen';
 import type { MainTabParamList } from './types';
 
@@ -66,6 +67,16 @@ export function MainTabNavigator() {
           title: t('social.title'),
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="trophy-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Wellness"
+        component={WellnessScreen}
+        options={{
+          title: t('wellness.tab_label'),
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="heart-pulse" color={color} size={size} />
           ),
         }}
       />

@@ -2,6 +2,7 @@
   "expo": {
     "name": "Daily Activity Tracker",
     "slug": "daily-activity-tracker",
+    "scheme": "dailytracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icons/icon.png",
@@ -30,6 +31,14 @@
       },
       "package": "com.vikas.dailyactivitytracker",
       "versionCode": 1,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [{ "scheme": "dailytracker" }],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
       "permissions": [
         "android.permission.RECEIVE_BOOT_COMPLETED",
         "android.permission.SCHEDULE_EXACT_ALARM",

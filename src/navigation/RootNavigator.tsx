@@ -12,6 +12,12 @@ import { AuthNavigator } from './AuthNavigator';
 import { BadgesScreen } from '@screens/BadgesScreen';
 import { PaywallScreen } from '@screens/paywall/PaywallScreen';
 import { TeamScreen } from '@screens/team/TeamScreen';
+import { InsightsScreen } from '@screens/insights/InsightsScreen';
+import { SchedulePlannerScreen } from '@screens/wellness/SchedulePlannerScreen';
+import CoachPersonaSelectorScreen from '@screens/coaching/CoachPersonaSelectorScreen';
+import CoachChatScreen from '@screens/coaching/CoachChatScreen';
+import ProgramDetailScreen from '@screens/coaching/ProgramDetailScreen';
+import ProgramEnrollmentScreen from '@screens/coaching/ProgramEnrollmentScreen';
 import type { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -83,6 +89,36 @@ export function RootNavigator() {
               name="Team"
               component={TeamScreen}
               options={{ headerShown: true, title: 'Team Workspace' }}
+            />
+            <Stack.Screen
+              name="Insights"
+              component={InsightsScreen}
+              options={{ headerShown: true, title: 'AI Insights', headerTintColor: '#6A1B9A' }}
+            />
+            <Stack.Screen
+              name="SchedulePlanner"
+              component={SchedulePlannerScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CoachPersonaSelector"
+              component={CoachPersonaSelectorScreen}
+              options={{ headerShown: true, title: 'Choose Your Coach', headerTintColor: '#6A1B9A' }}
+            />
+            <Stack.Screen
+              name="CoachChat"
+              component={CoachChatScreen}
+              options={{ headerShown: true, title: 'Coach', headerTintColor: '#6A1B9A' }}
+            />
+            <Stack.Screen
+              name="ProgramDetail"
+              component={ProgramDetailScreen}
+              options={{ headerShown: true, title: 'Program', headerTintColor: '#6A1B9A' }}
+            />
+            <Stack.Screen
+              name="ProgramEnrollment"
+              component={ProgramEnrollmentScreen}
+              options={{ headerShown: true, title: "Today's Program", headerTintColor: '#6A1B9A' }}
             />
           </>
         )}

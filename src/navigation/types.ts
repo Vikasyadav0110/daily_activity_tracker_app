@@ -16,6 +16,12 @@ export type RootStackParamList = {
   BadgesModal: undefined;
   Paywall: undefined;
   Team: undefined;
+  Insights: undefined;
+  SchedulePlanner: undefined;
+  CoachPersonaSelector: undefined;
+  CoachChat: { personaId: string };
+  ProgramDetail: { programId: string };
+  ProgramEnrollment: { programId: string; userProgramId: string };
 };
 
 export type MainTabParamList = {
@@ -23,6 +29,7 @@ export type MainTabParamList = {
   Progress: undefined;
   Analytics: undefined;
   Social: undefined;
+  Wellness: undefined;
   Settings: undefined;
 };
 

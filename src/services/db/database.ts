@@ -2,7 +2,7 @@ import * as SQLite from 'expo-sqlite';
 import { seedDefaultBadges } from './badgesRepo';
 
 const DB_NAME = 'daily_activity_tracker.db';
-const CURRENT_SCHEMA_VERSION = 3;
+const CURRENT_SCHEMA_VERSION = 4;
 
 let db: SQLite.SQLiteDatabase | null = null;
 
@@ -43,6 +43,9 @@ async function runMigrations(
     }
     if (fromVersion < 3) {
       await applyMigration003(database);
+    }
+    if (fromVersion < 4) {
+      await applyMigration004(database);
     }
   });
 }
@@ -198,6 +201,100 @@ async function applyMigration003(database: SQLite.SQLiteDatabase): Promise<void>
     INSERT OR IGNORE INTO local_subscription (id, plan, status) VALUES (1, 'free', 'inactive');
 
     PRAGMA user_version = 3;
+  `);
+}
+
+async function applyMigration004(database: SQLite.SQLiteDatabase): Promise<void> {
+  await database.execAsync(`
+    CREATE TABLE IF NOT EXISTS mood_logs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      date TEXT NOT NULL,
+      mood_rating INTEGER NOT NULL CHECK(mood_rating BETWEEN 1 AND 5),
+      energy_level INTEGER NOT NULL CHECK(energy_level BETWEEN 1 AND 5),
+      sleep_quality INTEGER CHECK(sleep_quality BETWEEN 1 AND 5),
+      notes TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      UNIQUE(date)
+    );
+
+    CREATE TABLE IF NOT EXISTS fasts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      vrat_name TEXT NOT NULL,
+      start_date TEXT NOT NULL,
+      end_date TEXT NOT NULL,
+      start_time TEXT,
+      end_time TEXT,
+      status TEXT NOT NULL DEFAULT 'planned',
+      mood_rating INTEGER CHECK(mood_rating BETWEEN 1 AND 5),
+      notes TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS mantra_logs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      mantra_name TEXT NOT NULL,
+      count INTEGER NOT NULL DEFAULT 0,
+      duration_minutes INTEGER,
+      date TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS ai_insights (
+      id TEXT PRIMARY KEY,
+      insight_week_start TEXT NOT NULL,
+      insight_type TEXT NOT NULL DEFAULT 'weekly_review',
+      insight_title TEXT NOT NULL,
+      insight_text TEXT NOT NULL,
+      insight_data TEXT,
+      xp_reward INTEGER NOT NULL DEFAULT 50,
+      was_acted_upon INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      viewed_at TEXT,
+      UNIQUE(insight_week_start, insight_type)
+    );
+
+    CREATE TABLE IF NOT EXISTS ai_coach_messages (
+      id TEXT PRIMARY KEY,
+      message_type TEXT NOT NULL,
+      message_text TEXT NOT NULL,
+      triggered_reason TEXT,
+      was_sent_at TEXT NOT NULL DEFAULT (datetime('now')),
+      was_opened INTEGER NOT NULL DEFAULT 0,
+      user_acted INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS scheduled_plans (
+      id TEXT PRIMARY KEY,
+      plan_name TEXT NOT NULL,
+      plan_json TEXT NOT NULL,
+      plan_type TEXT NOT NULL DEFAULT 'ai_generated',
+      status TEXT NOT NULL DEFAULT 'active',
+      adherence_rate REAL NOT NULL DEFAULT 0,
+      start_date TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS wellness_tips (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      tip_text TEXT NOT NULL,
+      tip_text_hi TEXT,
+      tip_category TEXT NOT NULL DEFAULT 'general_wellness',
+      season TEXT,
+      dosha TEXT,
+      display_order INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS dosha_profiles (
+      id INTEGER PRIMARY KEY DEFAULT 1,
+      primary_dosha TEXT NOT NULL DEFAULT 'vata',
+      secondary_dosha TEXT,
+      determined_via TEXT NOT NULL DEFAULT 'quiz',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    PRAGMA user_version = 4;
   `);
 }
 

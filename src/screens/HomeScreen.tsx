@@ -31,7 +31,7 @@ export function HomeScreen() {
   const theme = useTheme();
   const { t } = useTranslation();
   const navigation = useNavigation<HomeNavProp>();
-  const { language } = useSettingsStore();
+  useSettingsStore();
   const {
     activities,
     setActivities,
