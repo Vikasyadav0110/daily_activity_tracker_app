@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
+import { LocaleSwitcher } from './LocaleSwitcher';
 
 const NAV = [
   { href: '/dashboard',            icon: '🏠', label: 'Today' },
@@ -13,7 +14,11 @@ const NAV = [
   { href: '/dashboard/social',     icon: '🏆', label: 'Social' },
   { href: '/dashboard/coaching',       icon: '🤖', label: 'Coaching' },
   { href: '/dashboard/api-keys',      icon: '🔑', label: 'API Keys' },
+  { href: '/dashboard/developers',    icon: '🛠️', label: 'Developers' },
   { href: '/dashboard/integrations',  icon: '🔗', label: 'Integrations' },
+  { href: '/dashboard/marketplace',   icon: '🛒', label: 'Marketplace' },
+  { href: '/dashboard/enterprise',    icon: '🏢', label: 'Enterprise' },
+  { href: '/dashboard/growth',         icon: '📈', label: 'Growth' },
   { href: '/dashboard/settings',      icon: '⚙️', label: 'Settings' },
 ];
 
@@ -59,6 +64,9 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      {/* Locale switcher */}
+      <LocaleSwitcher />
 
       {/* Sign out */}
       <div className="px-3 pb-5">

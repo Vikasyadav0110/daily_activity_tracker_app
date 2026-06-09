@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { supabase } from '@services/supabase/client';
+import { updateSettings } from '@services/db/settingsRepo';
 
 export interface Region {
   code: string;
@@ -41,6 +42,17 @@ export const useRegionStore = create<RegionStore>((set, get) => ({
 
   setRegion: (region) => {
     set({ region });
+    // Persist to local SQLite so the selection survives app restarts
+    updateSettings({ region_code: region.code }).catch(() => null);
+    // Sync to Supabase user profile (non-blocking)
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        supabase.from('user_profiles')
+          .update({ region_code: region.code })
+          .eq('user_id', data.user.id)
+          .then(() => null);
+      }
+    }).catch(() => null);
     get().loadRegion(region.code);
   },
 

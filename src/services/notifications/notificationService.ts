@@ -47,9 +47,9 @@ export async function scheduleDailyCheckIns(): Promise<void> {
     identifier: NOTIF_MORNING,
     content: { title: morningTitle, body: morningBody, sound: true },
     trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.DAILY,
       hour: 8,
       minute: 0,
+      repeats: true as const,
     },
   });
 
@@ -58,9 +58,9 @@ export async function scheduleDailyCheckIns(): Promise<void> {
     identifier: NOTIF_EVENING,
     content: { title: eveningTitle, body: eveningBody, sound: true },
     trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.DAILY,
       hour: 20,
       minute: 0,
+      repeats: true as const,
     },
   });
 }
@@ -112,7 +112,7 @@ export async function scheduleStreakAtRiskNotifications(): Promise<void> {
       await Notifications.scheduleNotificationAsync({
         identifier: notifId,
         content: { title, body, sound: true, data: { activityId: streak.activity_id } },
-        trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date: trigger },
+        trigger: { date: trigger },
       });
     }
   }
@@ -134,9 +134,9 @@ export async function scheduleActivityReminder(
     identifier: `reminder-${activityId}`,
     content: { title, body, sound: true, data: { activityId } },
     trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.DAILY,
       hour,
       minute,
+      repeats: true as const,
     },
   });
 }

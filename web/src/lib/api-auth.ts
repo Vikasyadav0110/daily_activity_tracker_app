@@ -70,6 +70,6 @@ export function apiError(message: string, status: number, code?: string) {
   return NextResponse.json({ error: { message, code: code ?? String(status) } }, { status });
 }
 
-export function apiOk<T>(data: T, meta?: Record<string, unknown>) {
-  return NextResponse.json({ data, ...(meta ? { meta } : {}) });
+export function apiOk<T>(data: T, meta?: Record<string, unknown>, status = 200) {
+  return NextResponse.json({ data, ...(meta ? { meta } : {}) }, { status });
 }

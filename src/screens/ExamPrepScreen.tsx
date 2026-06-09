@@ -5,7 +5,6 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  Alert,
   TextInput as RNTextInput,
 } from 'react-native';
 import { Text, useTheme, ActivityIndicator, Snackbar } from 'react-native-paper';
@@ -640,7 +639,7 @@ export function ExamPrepScreen() {
                     {t('exam_prep.score_trend')} (%)
                   </Text>
                   <View style={styles.bars}>
-                    {[...mockTests].reverse().slice(-10).map((test, i) => {
+                    {[...mockTests].reverse().slice(-10).map((test) => {
                       const pct = Math.round((test.score / test.total_marks) * 100);
                       return (
                         <View key={test.id} style={styles.barWrapper}>

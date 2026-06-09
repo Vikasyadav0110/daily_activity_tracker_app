@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useSettingsStore } from '@store/settingsStore';
 import { useAuthStore } from '@store/authStore';
+import { useRegionStore } from '@store/regionStore';
 import { getSettings } from '@services/db/settingsRepo';
 import { getSession, getCurrentUser } from '@services/supabase/authService';
 import { LanguageSelectionScreen } from '@screens/LanguageSelectionScreen';
@@ -23,13 +25,15 @@ import type { RootStackParamList } from './types';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function RootNavigator() {
-  const { onboardingComplete, loadFromDB } = useSettingsStore();
+  const { onboardingComplete, settingsLoaded, loadFromDB } = useSettingsStore();
   const { setUser, setLoading, setLocalOnly } = useAuthStore();
+  const { loadRegion } = useRegionStore();
 
   useEffect(() => {
     async function init() {
-      // Load local settings
+      // Load local settings + region
       const s = await getSettings();
+      loadRegion(s.region_code).catch(() => null);
       loadFromDB({
         language: s.language,
         theme: s.theme,
@@ -58,6 +62,14 @@ export function RootNavigator() {
     }
     init();
   }, [loadFromDB, setUser, setLocalOnly, setLoading]);
+
+  if (!settingsLoaded) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>

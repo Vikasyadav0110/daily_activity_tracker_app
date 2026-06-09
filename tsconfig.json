@@ -9,6 +9,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "exactOptionalPropertyTypes": false,
+    "types": ["jest", "node"],
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],

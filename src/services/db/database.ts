@@ -2,9 +2,13 @@ import * as SQLite from 'expo-sqlite';
 import { seedDefaultBadges } from './badgesRepo';
 
 const DB_NAME = 'daily_activity_tracker.db';
-const CURRENT_SCHEMA_VERSION = 4;
+const CURRENT_SCHEMA_VERSION = 5;
 
 let db: SQLite.SQLiteDatabase | null = null;
+
+export function resetDatabaseSingleton(): void {
+  db = null;
+}
 
 export async function getDatabase(): Promise<SQLite.SQLiteDatabase> {
   if (!db) {
@@ -46,6 +50,9 @@ async function runMigrations(
     }
     if (fromVersion < 4) {
       await applyMigration004(database);
+    }
+    if (fromVersion < 5) {
+      await applyMigration005(database);
     }
   });
 }
@@ -295,6 +302,13 @@ async function applyMigration004(database: SQLite.SQLiteDatabase): Promise<void>
     );
 
     PRAGMA user_version = 4;
+  `);
+}
+
+async function applyMigration005(database: SQLite.SQLiteDatabase): Promise<void> {
+  await database.execAsync(`
+    ALTER TABLE app_settings ADD COLUMN region_code TEXT NOT NULL DEFAULT 'IN';
+    PRAGMA user_version = 5;
   `);
 }
 

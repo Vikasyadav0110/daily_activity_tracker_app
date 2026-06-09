@@ -7,6 +7,7 @@ interface SettingsState {
   theme: 'light' | 'dark';
   notificationEnabled: boolean;
   onboardingComplete: boolean;
+  settingsLoaded: boolean;
   setLanguage: (lang: string) => void;
   setTheme: (theme: 'light' | 'dark') => void;
   setNotificationEnabled: (enabled: boolean) => void;
@@ -24,6 +25,7 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   theme: 'light',
   notificationEnabled: true,
   onboardingComplete: false,
+  settingsLoaded: false,
 
   setLanguage: (lang) => {
     set({ language: lang });
@@ -52,6 +54,7 @@ export const useSettingsStore = create<SettingsState>((set) => ({
       theme: settings.theme,
       notificationEnabled: settings.notification_enabled,
       onboardingComplete: settings.onboarding_complete,
+      settingsLoaded: true,
     });
     i18n.changeLanguage(settings.language);
   },

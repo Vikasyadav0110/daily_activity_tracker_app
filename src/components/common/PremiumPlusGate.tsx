@@ -63,7 +63,7 @@ export function PremiumPlusGate({ children, feature, blurMode = false }: Props) 
 
 const styles = StyleSheet.create({
   blurWrapper: { position: 'relative' },
-  blurOverlay: { opacity: 0.12 },
+  blurOverlay: { opacity: 0.25 },
   blurMask: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',

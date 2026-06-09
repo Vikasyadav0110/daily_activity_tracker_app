@@ -9,6 +9,7 @@ export interface AppSettings {
   notification_enabled: boolean;
   reminder_times: ReminderTime[];
   onboarding_complete: boolean;
+  region_code: string;
   created_at: string;
   updated_at: string;
 }
@@ -56,6 +57,7 @@ export async function updateSettings(
     fields.push('onboarding_complete = ?');
     values.push(updates.onboarding_complete ? 1 : 0);
   }
+  if (updates.region_code !== undefined) { fields.push('region_code = ?'); values.push(updates.region_code); }
   if (updates.user_id !== undefined) { fields.push('user_id = ?'); values.push(updates.user_id); }
 
   if (fields.length === 0) return;
@@ -86,6 +88,7 @@ function normalizeSettings(row: Record<string, unknown>): AppSettings {
     reminder_times: reminderTimes,
     onboarding_complete:
       row.onboarding_complete === 1 || row.onboarding_complete === true,
+    region_code: (row.region_code as string) || 'IN',
     created_at: row.created_at as string,
     updated_at: row.updated_at as string,
   };

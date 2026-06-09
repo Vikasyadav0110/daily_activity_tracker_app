@@ -35,7 +35,7 @@ const queryClient = new QueryClient({
 });
 
 Sentry.init({
-  dsn: process.env.SENTRY_DSN,
+  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
   enabled: process.env.NODE_ENV === 'production',
   tracesSampleRate: 0.2,
 });

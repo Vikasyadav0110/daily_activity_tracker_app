@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Text, ProgressBar, useTheme } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 import { useOnboardingStore } from '@store/onboardingStore';
 import { useSettingsStore } from '@store/settingsStore';
 import { useActivitiesStore } from '@store/activitiesStore';
@@ -16,7 +15,6 @@ import { createActivity } from '@services/db/activitiesRepo';
 import { createExamPrep } from '@services/db/examRepo';
 import { getExamConfig } from '@constants/examTypes';
 import { Button } from '@components/common/Button';
-import type { RootNavigationProp } from '@navigation/types';
 import type { ExamType } from '@services/db/examRepo';
 
 type Goal = 'exam' | 'fitness' | 'spiritual' | 'productivity';
@@ -78,7 +76,6 @@ const STARTER_TEMPLATES: Record<Goal, Array<{ name: string; icon: string; catego
 export function OnboardingQuizScreen() {
   const theme = useTheme();
   const { t } = useTranslation();
-  const navigation = useNavigation<RootNavigationProp>();
   const store = useOnboardingStore();
   const { setOnboardingComplete } = useSettingsStore();
   const { addActivity } = useActivitiesStore();

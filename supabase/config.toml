@@ -1,0 +1,78 @@
+# Supabase project configuration
+# Reference: https://supabase.com/docs/reference/cli/config
+
+[project]
+# project_id = "your-project-ref"  # fill in after: supabase link --project-ref <ref>
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://127.0.0.1"
+
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://localhost:3000", "https://app.dailyactivitytracker.in"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = true
+
+[auth.sms]
+enable_signup = false
+
+[edge_runtime]
+enabled = true
+policy = "oneshot"
+inspector_port = 8083
+
+# Cron jobs (requires Supabase Pro plan or self-hosted pg_cron)
+# send-manager-digest runs every Monday at 7:00 AM IST (1:30 AM UTC)
+[cron.jobs.send_manager_digest]
+enabled = true
+schedule = "30 1 * * 1"
+# The cron job calls the Edge Function via pg_net (configure in Supabase dashboard SQL editor)
+# Example SQL to register with pg_cron:
+# SELECT cron.schedule(
+#   'send-manager-digest',
+#   '30 1 * * 1',
+#   $$
+#   SELECT net.http_post(
+#     url := 'https://<project-ref>.supabase.co/functions/v1/send-manager-digest',
+#     headers := '{"Authorization": "Bearer <service_role_key>", "Content-Type": "application/json"}'::jsonb,
+#     body := '{"org_id": "all"}'::jsonb
+#   ) AS request_id;
+#   $$
+# );
+
+[analytics]
+enabled = false
+# port = 54327
+# vector_port = 54328
+# gcp_project_id = ""
+# gcp_project_number = ""
+# gcp_jwt_path = "supabase/temp/service-account.json"

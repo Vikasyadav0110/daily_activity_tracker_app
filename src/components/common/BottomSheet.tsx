@@ -15,7 +15,7 @@ interface Props {
   onDismiss: () => void;
   children: React.ReactNode;
   style?: ViewStyle;
-  snapPoint?: string; // e.g. "85%" — controls maxHeight of the sheet
+  snapPoint?: `${number}%` | number;
 }
 
 export function BottomSheet({ visible, onDismiss, children, style, snapPoint }: Props) {
@@ -32,10 +32,10 @@ export function BottomSheet({ visible, onDismiss, children, style, snapPoint }: 
       <TouchableWithoutFeedback onPress={onDismiss} accessible={false}>
         <View style={styles.overlay} />
       </TouchableWithoutFeedback>
+      <View style={styles.keyboardView} pointerEvents="box-none">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardView}
-        pointerEvents="box-none"
+        style={styles.keyboardViewInner}
       >
         <View
           style={[
@@ -49,6 +49,7 @@ export function BottomSheet({ visible, onDismiss, children, style, snapPoint }: 
           {children}
         </View>
       </KeyboardAvoidingView>
+      </View>
     </Modal>
   );
 }
@@ -60,6 +61,10 @@ const styles = StyleSheet.create({
   },
   keyboardView: {
     flex: 1,
+    justifyContent: 'flex-end',
+  },
+  keyboardViewInner: {
+    width: '100%',
     justifyContent: 'flex-end',
   },
   sheet: {

@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import { BottomSheet } from '@components/common/BottomSheet';
 import { Button } from '@components/common/Button';
 import { updateActivity, archiveActivity } from '@services/db/activitiesRepo';
-import { useActivitiesStore } from '@store/activitiesStore';
 import { CATEGORIES, ACTIVITY_EMOJIS } from '@constants/categories';
 import type { Activity } from '@services/db/activitiesRepo';
 
@@ -25,7 +24,6 @@ interface Props {
 export function ActivityEditModal({ activity, onDismiss, onSaved }: Props) {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { setActivities } = useActivitiesStore();
 
   const [name, setName] = useState('');
   const [icon, setIcon] = useState('⚡');

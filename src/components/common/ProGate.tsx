@@ -70,7 +70,7 @@ export function ProGate({ children, blurMode = false, featureLabel }: Props) {
 
 const styles = StyleSheet.create({
   blurWrapper: { position: 'relative' },
-  blurContent: { opacity: 0.15 },
+  blurContent: { opacity: 0.30 },
   lockOverlay: {
     position: 'absolute',
     top: 0, left: 0, right: 0, bottom: 0,
