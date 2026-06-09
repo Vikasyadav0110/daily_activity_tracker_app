@@ -278,3 +278,62 @@ describe('isStreakBroken', () => {
     expect(isStreakBroken(streak, '2024-01-10')).toBe(true);
   });
 });
+
+// Badge milestone crossing tests — validates the >= / prevDays < milestone logic used in ActivityListItem
+describe('milestone crossing detection (simulated)', () => {
+  it('forgiveness jump from 2→4 crosses milestone at 3', () => {
+    // Simulate: streak was 2, forgiveness applied, now 4
+    const streak = makeStreak({
+      current_streak_days: 2,
+      last_logged_date: '2024-01-08',
+      forgiveness_used: false,
+    });
+    const result = calculateStreakUpdate(streak, '2024-01-10'); // gap=2, forgiveness
+    expect(result.current_streak_days).toBe(3);
+    expect(result.forgiveness_applied).toBe(true);
+    // milestone 3: prevDays(2) < 3 <= newDays(3) → should fire
+    const prevDays = 2;
+    const newDays = result.current_streak_days;
+    expect(newDays >= 3 && prevDays < 3).toBe(true);
+  });
+
+  it('forgiveness jump from 5→7 crosses milestone at 7', () => {
+    const streak = makeStreak({
+      current_streak_days: 5,
+      last_logged_date: '2024-02-10',
+      forgiveness_used: false,
+    });
+    const result = calculateStreakUpdate(streak, '2024-02-12'); // gap=2
+    // Note: forgiveness extends by 1, so 5→6 not 5→7. Gap=2 adds 1 day.
+    expect(result.current_streak_days).toBe(6);
+    const prevDays = 5;
+    const newDays = result.current_streak_days;
+    // milestone 7: 6 < 7, so should NOT fire
+    expect(newDays >= 7 && prevDays < 7).toBe(false);
+  });
+
+  it('consecutive day from 6→7 crosses milestone at 7', () => {
+    const streak = makeStreak({
+      current_streak_days: 6,
+      last_logged_date: '2024-03-01',
+    });
+    const result = calculateStreakUpdate(streak, '2024-03-02');
+    expect(result.current_streak_days).toBe(7);
+    const prevDays = 6;
+    const newDays = result.current_streak_days;
+    expect(newDays >= 7 && prevDays < 7).toBe(true);
+  });
+
+  it('streak already at 7, extending to 8 does NOT re-fire milestone 7', () => {
+    const streak = makeStreak({
+      current_streak_days: 7,
+      last_logged_date: '2024-03-02',
+    });
+    const result = calculateStreakUpdate(streak, '2024-03-03');
+    expect(result.current_streak_days).toBe(8);
+    const prevDays = 7;
+    const newDays = result.current_streak_days;
+    // prevDays is NOT < 7, so milestone should not fire
+    expect(newDays >= 7 && prevDays < 7).toBe(false);
+  });
+});

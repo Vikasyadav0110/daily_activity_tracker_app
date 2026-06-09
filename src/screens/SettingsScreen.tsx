@@ -1,9 +1,18 @@
-import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
-import { Text, List, Switch, Divider, useTheme } from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, StyleSheet, SafeAreaView, Alert } from 'react-native';
+import { Text, List, Switch, Divider, useTheme, ActivityIndicator } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useSettingsStore } from '@store/settingsStore';
+import { useAuthStore } from '@store/authStore';
+import { useProStore } from '@store/proStore';
+import { signOut } from '@services/supabase/authService';
+import { syncNow } from '@services/supabase/syncService';
+import { syncFromHealth, isHealthAvailable, getHealthPlatform } from '@services/health/healthService';
+import { refreshWidgetData } from '@services/widget/widgetDataService';
 import { SUPPORTED_LANGUAGES } from '@i18n/index';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '@navigation/types';
 
 const LANGUAGE_NAMES: Record<string, string> = {
   en: 'English',
@@ -16,14 +25,142 @@ const LANGUAGE_NAMES: Record<string, string> = {
 export function SettingsScreen() {
   const theme = useTheme();
   const { t } = useTranslation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { language, theme: appTheme, notificationEnabled, setLanguage, setTheme, setNotificationEnabled } =
     useSettingsStore();
+  const { user, isLocalOnly, signOut: storeSignOut } = useAuthStore();
+  const { isPro, plan } = useProStore();
+  const [syncing, setSyncing] = useState(false);
+  const [healthSyncing, setHealthSyncing] = useState(false);
+  const [widgetRefreshing, setWidgetRefreshing] = useState(false);
+
+  async function handleSignOut() {
+    Alert.alert(
+      t('auth.sign_out'),
+      'Your local data will remain on this device.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: t('auth.sign_out'),
+          style: 'destructive',
+          onPress: async () => {
+            await signOut().catch(() => {});
+            storeSignOut();
+          },
+        },
+      ]
+    );
+  }
+
+  async function handleHealthSync() {
+    const available = await isHealthAvailable();
+    if (!available) {
+      const platform = getHealthPlatform();
+      const name = platform === 'apple_health' ? 'Apple Health' : platform === 'google_fit' ? 'Google Fit' : 'Health';
+      Alert.alert(
+        t('settings.health_unavailable_title'),
+        t('settings.health_unavailable_body', { platform: name })
+      );
+      return;
+    }
+    setHealthSyncing(true);
+    const result = await syncFromHealth(7);
+    setHealthSyncing(false);
+    if (result.error) {
+      Alert.alert(t('settings.health_sync_failed'), result.error);
+    } else {
+      Alert.alert(t('settings.health_sync_success'), `${result.synced} activities synced`);
+    }
+  }
+
+  async function handleWidgetRefresh() {
+    setWidgetRefreshing(true);
+    await refreshWidgetData().catch(() => {});
+    setWidgetRefreshing(false);
+    Alert.alert(t('settings.widget_refreshed'));
+  }
+
+  async function handleSync() {
+    if (!user) return;
+    setSyncing(true);
+    const result = await syncNow(user.id);
+    setSyncing(false);
+    if (result.error) {
+      Alert.alert(t('auth.sync_failed'), result.error);
+    } else {
+      Alert.alert(t('auth.sync_success'), `↑ ${result.pushed} pushed · ↓ ${result.pulled} pulled`);
+    }
+  }
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <Text style={[styles.title, { color: theme.colors.onBackground }]}>
         {t('settings.title')}
       </Text>
+
+      {/* Pro subscription section */}
+      <List.Section>
+        <List.Subheader>{t('paywall.plan')}</List.Subheader>
+        {isPro ? (
+          <List.Item
+            title={`⚡ Pro · ${plan === 'pro_annual' ? 'Annual' : 'Monthly'}`}
+            description={t('paywall.plan_active')}
+            left={() => <List.Icon icon="crown" color="#BF360C" />}
+          />
+        ) : (
+          <List.Item
+            title={t('paywall.upgrade_cta')}
+            description={t('paywall.upgrade_desc')}
+            left={() => <List.Icon icon="crown-outline" />}
+            onPress={() => navigation.navigate('Paywall')}
+            right={() => (
+              <Text style={{ color: '#BF360C', fontWeight: '700', fontSize: 12, alignSelf: 'center', marginRight: 8 }}>
+                PRO
+              </Text>
+            )}
+          />
+        )}
+      </List.Section>
+
+      <Divider />
+
+      {/* Account section */}
+      <List.Section>
+        <List.Subheader>{t('auth.account')}</List.Subheader>
+        {isLocalOnly ? (
+          <List.Item
+            title={t('auth.continue_without_account')}
+            description="Tap to sign in and enable cloud sync"
+            left={() => <List.Icon icon="account-outline" />}
+            onPress={() => navigation.navigate('Auth')}
+          />
+        ) : (
+          <>
+            <List.Item
+              title={t('auth.signed_in_as')}
+              description={user?.email ?? user?.displayName ?? ''}
+              left={() => <List.Icon icon="account-check" color={theme.colors.primary} />}
+            />
+            <List.Item
+              title={syncing ? 'Syncing...' : t('auth.sync_now')}
+              left={() => syncing
+                ? <ActivityIndicator size={16} style={styles.syncIcon} />
+                : <List.Icon icon="cloud-sync" />
+              }
+              onPress={handleSync}
+              disabled={syncing}
+            />
+            <List.Item
+              title={t('auth.sign_out')}
+              left={() => <List.Icon icon="logout" />}
+              onPress={handleSignOut}
+              titleStyle={{ color: theme.colors.error }}
+            />
+          </>
+        )}
+      </List.Section>
+
+      <Divider />
 
       <List.Section>
         <List.Subheader>{t('settings.language')}</List.Subheader>
@@ -73,9 +210,43 @@ export function SettingsScreen() {
         />
       </List.Section>
 
+      <Divider />
+
+      {/* Health Sync */}
+      <List.Section>
+        <List.Subheader>{t('settings.health_sync')}</List.Subheader>
+        <List.Item
+          title={healthSyncing ? t('settings.health_syncing') : t('settings.health_sync_btn')}
+          description={t('settings.health_sync_desc')}
+          left={() => healthSyncing
+            ? <ActivityIndicator size={16} style={styles.syncIcon} />
+            : <List.Icon icon="heart-pulse" color="#E53935" />
+          }
+          onPress={handleHealthSync}
+          disabled={healthSyncing}
+        />
+      </List.Section>
+
+      <Divider />
+
+      {/* Widget */}
+      <List.Section>
+        <List.Subheader>{t('settings.widget')}</List.Subheader>
+        <List.Item
+          title={widgetRefreshing ? t('settings.widget_refreshing') : t('settings.widget_refresh_btn')}
+          description={t('settings.widget_refresh_desc')}
+          left={() => widgetRefreshing
+            ? <ActivityIndicator size={16} style={styles.syncIcon} />
+            : <List.Icon icon="widgets" />
+          }
+          onPress={handleWidgetRefresh}
+          disabled={widgetRefreshing}
+        />
+      </List.Section>
+
       <View style={styles.footer}>
         <Text style={{ color: theme.colors.onSurfaceVariant, fontSize: 12 }}>
-          {t('settings.version', { version: '1.0.0' })}
+          {t('settings.version', { version: '2.0.0' })}
         </Text>
       </View>
     </SafeAreaView>
@@ -86,4 +257,5 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   title: { fontSize: 28, fontWeight: '700', padding: 20, paddingBottom: 8 },
   footer: { alignItems: 'center', padding: 24 },
+  syncIcon: { marginLeft: 8, marginRight: 8 },
 });

@@ -80,7 +80,7 @@ export function ActivityCreationModal({ visible, onDismiss }: Props) {
       return false;
     }
     if (!category) {
-      setSnackMessage('Please select a category');
+      setSnackMessage(t('activities.create.category_error'));
       setSnackVisible(true);
       return false;
     }

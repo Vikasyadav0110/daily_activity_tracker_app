@@ -11,14 +11,26 @@ export interface Badge {
 }
 
 export const DEFAULT_BADGES: Omit<Badge, 'id' | 'is_earned' | 'unlocked_at'>[] = [
-  { activity_id: null, badge_key: 'streak_7',        badge_name: '7-Day Warrior',    badge_icon: '🔥' },
-  { activity_id: null, badge_key: 'streak_30',       badge_name: '30-Day Champion',  badge_icon: '🏆' },
-  { activity_id: null, badge_key: 'streak_100',      badge_name: '100-Day Legend',   badge_icon: '👑' },
-  { activity_id: null, badge_key: 'first_log',       badge_name: 'First Step',       badge_icon: '🌱' },
-  { activity_id: null, badge_key: 'studied_10h',     badge_name: '10 Hours Studied', badge_icon: '📚' },
-  { activity_id: null, badge_key: 'studied_100h',    badge_name: 'Century Scholar',  badge_icon: '🎓' },
-  { activity_id: null, badge_key: 'activities_3',    badge_name: 'Triple Tracker',   badge_icon: '⚡' },
-  { activity_id: null, badge_key: 'early_bird',      badge_name: 'Early Bird',       badge_icon: '🌅' },
+  // First action
+  { activity_id: null, badge_key: 'first_checkoff',  badge_name: 'First Step',         badge_icon: '🌱' },
+  // Streaks
+  { activity_id: null, badge_key: 'streak_3',        badge_name: '3-Day Habit',        badge_icon: '✨' },
+  { activity_id: null, badge_key: 'streak_7',        badge_name: '7-Day Warrior',      badge_icon: '🔥' },
+  { activity_id: null, badge_key: 'streak_14',       badge_name: '2-Week Streak',      badge_icon: '💪' },
+  { activity_id: null, badge_key: 'streak_30',       badge_name: '30-Day Champion',    badge_icon: '🏆' },
+  { activity_id: null, badge_key: 'streak_100',      badge_name: '100-Day Legend',     badge_icon: '👑' },
+  // Study hours
+  { activity_id: null, badge_key: 'studied_10h',     badge_name: '10 Hours Studied',   badge_icon: '📚' },
+  { activity_id: null, badge_key: 'studied_50h',     badge_name: '50 Hours Scholar',   badge_icon: '📖' },
+  { activity_id: null, badge_key: 'studied_100h',    badge_name: 'Century Scholar',    badge_icon: '🎓' },
+  // Exam / mock test
+  { activity_id: null, badge_key: 'mock_test_first', badge_name: 'First Mock Test',    badge_icon: '📝' },
+  { activity_id: null, badge_key: 'mock_test_ace',   badge_name: 'Mock Test Ace',      badge_icon: '⭐' },
+  // Syllabus
+  { activity_id: null, badge_key: 'syllabus_50',     badge_name: 'Halfway There',      badge_icon: '📋' },
+  { activity_id: null, badge_key: 'syllabus_100',    badge_name: 'Syllabus Complete',  badge_icon: '🎯' },
+  // Activities count
+  { activity_id: null, badge_key: 'activities_5',    badge_name: 'Five-Timer',         badge_icon: '⚡' },
 ];
 
 export async function seedDefaultBadges(): Promise<void> {
@@ -30,6 +42,14 @@ export async function seedDefaultBadges(): Promise<void> {
       [badge.activity_id, badge.badge_key, badge.badge_name, badge.badge_icon]
     );
   }
+}
+
+export async function getAllBadges(): Promise<Badge[]> {
+  const db = await getDatabase();
+  const rows = await db.getAllAsync<Badge>(
+    `SELECT * FROM badges ORDER BY is_earned DESC, badge_key ASC`
+  );
+  return rows.map(normalizeBadge);
 }
 
 export async function getBadges(activityId?: number): Promise<Badge[]> {
@@ -59,16 +79,18 @@ export async function unlockBadge(badgeKey: string): Promise<Badge | null> {
     `SELECT * FROM badges WHERE badge_key = ?`,
     [badgeKey]
   );
-  if (!existing || existing.is_earned) return existing ? normalizeBadge(existing) : null;
+  if (!existing) return null;
+  if (existing.is_earned) return normalizeBadge(existing);
 
   await db.runAsync(
     `UPDATE badges SET is_earned = 1, unlocked_at = datetime('now') WHERE badge_key = ?`,
     [badgeKey]
   );
-  return db.getFirstAsync<Badge>(
+  const updated = await db.getFirstAsync<Badge>(
     `SELECT * FROM badges WHERE badge_key = ?`,
     [badgeKey]
-  ).then((r) => (r ? normalizeBadge(r) : null));
+  );
+  return updated ? normalizeBadge(updated) : null;
 }
 
 function normalizeBadge(row: Badge): Badge {

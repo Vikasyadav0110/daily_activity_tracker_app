@@ -1,7 +1,8 @@
 import * as SQLite from 'expo-sqlite';
+import { seedDefaultBadges } from './badgesRepo';
 
 const DB_NAME = 'daily_activity_tracker.db';
-const CURRENT_SCHEMA_VERSION = 1;
+const CURRENT_SCHEMA_VERSION = 3;
 
 let db: SQLite.SQLiteDatabase | null = null;
 
@@ -25,6 +26,8 @@ export async function initDatabase(): Promise<void> {
   if (currentVersion < CURRENT_SCHEMA_VERSION) {
     await runMigrations(database, currentVersion);
   }
+
+  await seedDefaultBadges();
 }
 
 async function runMigrations(
@@ -35,7 +38,12 @@ async function runMigrations(
     if (fromVersion < 1) {
       await applyMigration001(database);
     }
-    // Future migrations: if (fromVersion < 2) { await applyMigration002(database); }
+    if (fromVersion < 2) {
+      await applyMigration002(database);
+    }
+    if (fromVersion < 3) {
+      await applyMigration003(database);
+    }
   });
 }
 
@@ -144,6 +152,52 @@ async function applyMigration001(database: SQLite.SQLiteDatabase): Promise<void>
     INSERT OR IGNORE INTO app_settings (id, language, theme) VALUES (1, 'en', 'light');
 
     PRAGMA user_version = 1;
+  `);
+}
+
+async function applyMigration002(database: SQLite.SQLiteDatabase): Promise<void> {
+  await database.execAsync(`
+    CREATE TABLE IF NOT EXISTS user_xp (
+      id INTEGER PRIMARY KEY DEFAULT 1,
+      total_xp INTEGER NOT NULL DEFAULT 0,
+      week_xp INTEGER NOT NULL DEFAULT 0,
+      level INTEGER NOT NULL DEFAULT 0,
+      week_reset_date TEXT NOT NULL DEFAULT (date('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS xp_events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      activity_id INTEGER,
+      event_type TEXT NOT NULL,
+      xp_amount INTEGER NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    INSERT OR IGNORE INTO user_xp (id, total_xp, week_xp, level) VALUES (1, 0, 0, 0);
+
+    CREATE INDEX IF NOT EXISTS idx_xp_events_created ON xp_events(created_at);
+
+    PRAGMA user_version = 2;
+  `);
+}
+
+async function applyMigration003(database: SQLite.SQLiteDatabase): Promise<void> {
+  await database.execAsync(`
+    CREATE TABLE IF NOT EXISTS local_subscription (
+      id INTEGER PRIMARY KEY DEFAULT 1,
+      plan TEXT NOT NULL DEFAULT 'free',
+      status TEXT NOT NULL DEFAULT 'inactive',
+      expires_at TEXT,
+      razorpay_subscription_id TEXT,
+      razorpay_payment_id TEXT,
+      verified_at TEXT,
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    INSERT OR IGNORE INTO local_subscription (id, plan, status) VALUES (1, 'free', 'inactive');
+
+    PRAGMA user_version = 3;
   `);
 }
 

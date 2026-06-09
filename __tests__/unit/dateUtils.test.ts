@@ -86,7 +86,44 @@ describe('isScheduledForDate', () => {
     expect(isScheduledForDate('weekly:1,3,5', '2024-01-09')).toBe(false);
   });
 
+  it('monthly with specific day numbers — matches', () => {
+    // 2024-01-15 is the 15th
+    expect(isScheduledForDate('monthly:15,20', '2024-01-15')).toBe(true);
+  });
+
+  it('monthly with specific day numbers — no match', () => {
+    expect(isScheduledForDate('monthly:15,20', '2024-01-16')).toBe(false);
+  });
+
   it('unknown frequency defaults to true', () => {
     expect(isScheduledForDate('someUnknownFormat', '2024-01-01')).toBe(true);
+  });
+});
+
+describe('getDayOfWeekName', () => {
+  it('returns correct day name strings', () => {
+    const { getDayOfWeekName } = require('../../src/utils/dateUtils');
+    expect(getDayOfWeekName('2024-01-07')).toBe('sun');
+    expect(getDayOfWeekName('2024-01-08')).toBe('mon');
+    expect(getDayOfWeekName('2024-01-13')).toBe('sat');
+  });
+});
+
+describe('getDateRangeIST', () => {
+  it('returns array of dates inclusive of start and end', () => {
+    const { getDateRangeIST } = require('../../src/utils/dateUtils');
+    const range = getDateRangeIST('2024-01-01', '2024-01-05');
+    expect(range).toEqual(['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05']);
+  });
+
+  it('returns single date when start equals end', () => {
+    const { getDateRangeIST } = require('../../src/utils/dateUtils');
+    expect(getDateRangeIST('2024-06-01', '2024-06-01')).toEqual(['2024-06-01']);
+  });
+
+  it('spans month boundary correctly', () => {
+    const { getDateRangeIST } = require('../../src/utils/dateUtils');
+    const range = getDateRangeIST('2024-01-30', '2024-02-02');
+    expect(range).toEqual(['2024-01-30', '2024-01-31', '2024-02-01', '2024-02-02']);
   });
 });

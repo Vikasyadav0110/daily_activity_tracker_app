@@ -10,6 +10,17 @@ import { RootNavigator } from '@navigation/RootNavigator';
 import { useSettingsStore } from '@store/settingsStore';
 import { lightTheme, darkTheme } from '@constants/colors';
 import { initDatabase } from '@services/db/database';
+import {
+  setupAndroidChannel,
+  requestNotificationPermissions,
+  scheduleDailyCheckIns,
+  scheduleStreakAtRiskNotifications,
+} from '@services/notifications/notificationService';
+import { syncNow } from '@services/supabase/syncService';
+import { useAuthStore } from '@store/authStore';
+import { useXPStore } from '@store/xpStore';
+import { useProStore } from '@store/proStore';
+import { refreshWidgetData } from '@services/widget/widgetDataService';
 import '@i18n/index';
 
 SplashScreen.preventAutoHideAsync();
@@ -32,11 +43,23 @@ Sentry.init({
 function AppContent() {
   const theme = useSettingsStore((s) => s.theme);
   const paperTheme = theme === 'dark' ? darkTheme : lightTheme;
+  const authUser = useAuthStore((s) => s.user);
+  const loadXP = useXPStore((s) => s.loadXP);
+  const loadSubscription = useProStore((s) => s.loadSubscription);
 
   useEffect(() => {
     async function prepare() {
       try {
         await initDatabase();
+        await setupAndroidChannel();
+        const granted = await requestNotificationPermissions();
+        if (granted) {
+          await scheduleDailyCheckIns();
+          await scheduleStreakAtRiskNotifications();
+        }
+        loadXP().catch(() => {});
+        loadSubscription().catch(() => {});
+        refreshWidgetData().catch(() => {});
       } catch (e) {
         Sentry.captureException(e);
       } finally {
@@ -45,6 +68,13 @@ function AppContent() {
     }
     prepare();
   }, []);
+
+  // Trigger a background sync whenever the user signs in
+  useEffect(() => {
+    if (authUser?.id) {
+      syncNow(authUser.id).catch(() => {/* non-fatal */});
+    }
+  }, [authUser?.id]);
 
   return (
     <PaperProvider theme={paperTheme}>

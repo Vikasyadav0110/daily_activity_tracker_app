@@ -3,8 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { HomeScreen } from '@screens/HomeScreen';
+import { HomeStackNavigator } from './HomeStackNavigator';
 import { ProgressScreen } from '@screens/ProgressScreen';
+import { AnalyticsScreen } from '@screens/AnalyticsScreen';
+import { SocialScreen } from '@screens/SocialScreen';
 import { SettingsScreen } from '@screens/SettingsScreen';
 import type { MainTabParamList } from './types';
 
@@ -29,7 +31,7 @@ export function MainTabNavigator() {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStackNavigator}
         options={{
           title: t('home.title'),
           tabBarIcon: ({ color, size }) => (
@@ -44,6 +46,26 @@ export function MainTabNavigator() {
           title: t('progress.title'),
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="chart-bar" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Analytics"
+        component={AnalyticsScreen}
+        options={{
+          title: t('analytics.title'),
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="chart-line" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Social"
+        component={SocialScreen}
+        options={{
+          title: t('social.title'),
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="trophy-outline" color={color} size={size} />
           ),
         }}
       />

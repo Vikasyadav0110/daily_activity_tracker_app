@@ -77,12 +77,16 @@ export async function updateActivity(
   updates: Partial<Omit<Activity, 'id' | 'created_at'>>
 ): Promise<void> {
   const db = await getDatabase();
-  const fields = Object.keys(updates)
-    .filter((k) => k !== 'id' && k !== 'created_at')
-    .map((k) => `${k} = ?`);
-  if (fields.length === 0) return;
+  const keys = Object.keys(updates).filter((k) => k !== 'id' && k !== 'created_at');
+  if (keys.length === 0) return;
 
-  const values = Object.values(updates);
+  const fields = keys.map((k) => `${k} = ?`);
+  // Coerce booleans to 0/1 so SQLite binding stays type-safe
+  const values = keys.map((k) => {
+    const v = (updates as Record<string, unknown>)[k];
+    return typeof v === 'boolean' ? (v ? 1 : 0) : (v as string | number | null);
+  });
+
   await db.runAsync(
     `UPDATE activities SET ${fields.join(', ')}, updated_at = datetime('now') WHERE id = ?`,
     [...values, id]

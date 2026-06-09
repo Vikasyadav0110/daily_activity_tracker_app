@@ -1,5 +1,5 @@
 import type { Streak } from '@services/db/streaksRepo';
-import { daysBetween, getTodayIST } from './dateUtils';
+import { daysBetween, getTodayIST, addDays } from './dateUtils';
 
 export interface StreakUpdateResult {
   current_streak_days: number;
@@ -114,9 +114,7 @@ export function getStreakDaysForRange(
   let current = startDate;
   while (current <= endDate) {
     result[current] = logSet.has(current);
-    const d = new Date(current);
-    d.setDate(d.getDate() + 1);
-    current = d.toISOString().split('T')[0];
+    current = addDays(current, 1);
   }
   return result;
 }

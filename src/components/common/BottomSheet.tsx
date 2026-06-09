@@ -15,9 +15,10 @@ interface Props {
   onDismiss: () => void;
   children: React.ReactNode;
   style?: ViewStyle;
+  snapPoint?: string; // e.g. "85%" — controls maxHeight of the sheet
 }
 
-export function BottomSheet({ visible, onDismiss, children, style }: Props) {
+export function BottomSheet({ visible, onDismiss, children, style, snapPoint }: Props) {
   const theme = useTheme();
 
   return (
@@ -40,6 +41,7 @@ export function BottomSheet({ visible, onDismiss, children, style }: Props) {
           style={[
             styles.sheet,
             { backgroundColor: theme.colors.surface },
+            snapPoint ? { maxHeight: snapPoint } : undefined,
             style,
           ]}
         >

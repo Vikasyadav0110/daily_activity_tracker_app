@@ -2,15 +2,27 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 
+export type AuthStackParamList = {
+  SignIn: undefined;
+  SignUp: undefined;
+  ForgotPassword: undefined;
+};
+
 export type RootStackParamList = {
+  Auth: undefined;
   LanguageSelection: undefined;
   OnboardingQuiz: undefined;
   Main: undefined;
+  BadgesModal: undefined;
+  Paywall: undefined;
+  Team: undefined;
 };
 
 export type MainTabParamList = {
   Home: undefined;
   Progress: undefined;
+  Analytics: undefined;
+  Social: undefined;
   Settings: undefined;
 };
 

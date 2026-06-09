@@ -14,14 +14,23 @@ import { getTodaysActivities } from '@services/db/activitiesRepo';
 import { getTodaysLogs, deleteLog } from '@services/db/logsRepo';
 import { ActivityListItem } from '@components/activities/ActivityListItem';
 import { ActivityCreationModal } from '@components/activities/ActivityCreationModal';
+import { ActivityEditModal } from '@components/activities/ActivityEditModal';
 import { LoadingSpinner } from '@components/common/LoadingSpinner';
 import { getTodayIST, getGreeting } from '@utils/dateUtils';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { Activity } from '@services/db/activitiesRepo';
+
 import type { LogStatus } from '@services/db/logsRepo';
+import { getAllStreaks } from '@services/db/streaksRepo';
+import type { ExamStackParamList } from '@navigation/types';
+
+type HomeNavProp = NativeStackNavigationProp<ExamStackParamList>;
 
 export function HomeScreen() {
   const theme = useTheme();
   const { t } = useTranslation();
+  const navigation = useNavigation<HomeNavProp>();
   const { language } = useSettingsStore();
   const {
     activities,
@@ -35,15 +44,19 @@ export function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [editActivity, setEditActivity] = useState<Activity | null>(null);
+  const [streakMap, setStreakMap] = useState<Record<number, number>>({});
   const [undoSnackVisible, setUndoSnackVisible] = useState(false);
   const [undoActivityId, setUndoActivityId] = useState<number | null>(null);
   const [undoTimer, setUndoTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const [badgeToast, setBadgeToast] = useState<{ name: string; icon: string } | null>(null);
 
   const loadData = useCallback(async () => {
     try {
-      const [acts, logs] = await Promise.all([
+      const [acts, logs, streaks] = await Promise.all([
         getTodaysActivities(),
         getTodaysLogs(),
+        getAllStreaks(),
       ]);
       setActivities(acts);
       const logMap: Record<number, LogStatus> = {};
@@ -51,6 +64,11 @@ export function HomeScreen() {
         logMap[log.activity_id] = log.status as LogStatus;
       }
       setTodayLogs(logMap);
+      const sm: Record<number, number> = {};
+      for (const s of streaks) {
+        sm[s.activity_id] = s.current_streak_days;
+      }
+      setStreakMap(sm);
     } catch (e) {
       // SQLite errors surface here — show nothing, don't crash
     } finally {
@@ -96,10 +114,26 @@ export function HomeScreen() {
   const greeting = getGreeting();
   const greetingKey = `home.good_${greeting}` as const;
 
+  const handleBadgeUnlocked = useCallback((name: string, icon: string) => {
+    setBadgeToast({ name, icon });
+  }, []);
+
+  const handleExamPress = useCallback((activityId: number) => {
+    navigation.navigate('ExamPrepScreen', { activityId });
+  }, [navigation]);
+
+  const handleEditRequest = useCallback((activity: Activity) => {
+    setEditActivity(activity);
+  }, []);
+
   const renderItem = ({ item }: { item: Activity }) => (
     <ActivityListItem
       activity={item}
+      currentStreak={streakMap[item.id] ?? 0}
       onUndoRequest={handleUndoRequest}
+      onEditRequest={handleEditRequest}
+      onBadgeUnlocked={handleBadgeUnlocked}
+      onExamPress={handleExamPress}
     />
   );
 
@@ -181,6 +215,12 @@ export function HomeScreen() {
         onDismiss={() => setModalVisible(false)}
       />
 
+      <ActivityEditModal
+        activity={editActivity}
+        onDismiss={() => setEditActivity(null)}
+        onSaved={() => loadData()}
+      />
+
       <Snackbar
         visible={undoSnackVisible}
         onDismiss={() => setUndoSnackVisible(false)}
@@ -188,6 +228,15 @@ export function HomeScreen() {
         action={{ label: t('activities.check_off.undo'), onPress: handleUndo }}
       >
         {t('activities.check_off.completed_today')}
+      </Snackbar>
+
+      <Snackbar
+        visible={badgeToast !== null}
+        onDismiss={() => setBadgeToast(null)}
+        duration={3500}
+        style={{ backgroundColor: '#1B5E20' }}
+      >
+        {badgeToast ? `${badgeToast.icon} ${t('badges.unlocked_message', { name: badgeToast.name })}` : ''}
       </Snackbar>
     </SafeAreaView>
   );
